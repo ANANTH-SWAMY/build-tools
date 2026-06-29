@@ -18,8 +18,11 @@ else
     exit 1
 fi
 VERSIONS_TOML="cbl-java/gradle/libs.versions.toml"
-NDK_VERSION=$(yq -p toml .versions.ndk   "${VERSIONS_TOML}")
-CMAKE_VERSION=$(yq -p toml .versions.cmake "${VERSIONS_TOML}")
+get_version() {
+    grep -E "^${1}[[:space:]]*=" "${VERSIONS_TOML}" | head -1 | sed -E 's/[^"]*"([^"]*)".*/\1/'
+}
+NDK_VERSION=$(get_version ndk)
+CMAKE_VERSION=$(get_version cmake)
 if [ -z "${NDK_VERSION}" ]; then
     echo "Could not detect NDK version - aborting!"
     exit 1
