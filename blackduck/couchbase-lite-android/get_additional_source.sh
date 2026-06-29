@@ -17,8 +17,9 @@ else
     echo "Could not locate toolchain script containing CMake and NDK_VERSION - aborting!"
     exit 1
 fi
-NDK_VERSION=$(cat ${toolchain_script} | grep ^NDK_VERSION |awk -F "\'|\"" '{print $2}')
-CMAKE_VERSION=$(cat ${toolchain_script} | grep ^CMAKE_VERSION |awk -F "\'|\"" '{print $2}')
+VERSIONS_TOML="cbl-java/gradle/libs.versions.toml"
+NDK_VERSION=$(yq .versions.ndk   "${VERSIONS_TOML}")
+CMAKE_VERSION=$(yq .versions.cmake "${VERSIONS_TOML}")
 if [ -z "${NDK_VERSION}" ]; then
     echo "Could not detect NDK version - aborting!"
     exit 1
