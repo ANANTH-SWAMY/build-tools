@@ -9,6 +9,9 @@
             "__comment": "This version points to the upcoming release",
             "release": "master",
             "interval": 1440
+        },
+        "1.1.0": {
+            "interval": 1440
         }
     }
 }
